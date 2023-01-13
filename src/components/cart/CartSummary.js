@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavItem,
-    NavLink,
-    Badge,
-} from 'reactstrap';
+    UncontrolledDropdown,DropdownToggle,
+    DropdownMenu,DropdownItem,
+    NavItem,NavLink,Badge,} from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import * as cartActions from "../../redux/actions/cartActions"
+import alertify from "alertifyjs"
 
 class CartSummary extends Component {
     renderEmpty() {
@@ -19,6 +16,11 @@ class CartSummary extends Component {
                 <NavLink>Sepet Boş</NavLink>
             </NavItem>
         )
+    }
+
+    removeFromCart(product){
+        this.props.actions.removeFromCart(product)
+        alertify.error(product.productName+ " sepetten silindi.")
     }
 
     renderSummary() {
@@ -30,10 +32,10 @@ class CartSummary extends Component {
                 <DropdownMenu dark>
                     {this.props.cart.map(cartItem => (
                         
-                        <DropdownItem key={cartItem.product.id}><Badge color='danger' onClick={()=>this.props.actions.removeFromCart(cartItem.product)}>Sil</Badge> {cartItem.product.productName} <Badge color='dark'>{cartItem.quantity}</Badge></DropdownItem>
+                        <DropdownItem key={cartItem.product.id}><Badge color='danger' onClick={()=>this.removeFromCart(cartItem.product)}>Sil</Badge> {cartItem.product.productName} <Badge color='dark'>{cartItem.quantity}</Badge></DropdownItem>
                     ))}
                     <DropdownItem divider />
-                    <DropdownItem>Sepet Detayı</DropdownItem>
+                    <Link to={"/cart"} style={{ textDecoration: 'none' }}><DropdownItem>Sepet Detayı</DropdownItem></Link>
                 </DropdownMenu>
             </UncontrolledDropdown>
         )
