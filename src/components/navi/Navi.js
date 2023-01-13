@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -8,6 +9,7 @@ import {
   NavItem,
   NavLink,
   Container,
+  NavbarText,
 } from 'reactstrap';
 import CartSummary from '../cart/CartSummary';
 
@@ -23,8 +25,8 @@ function Navi(args) {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className='ms-auto' navbar>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+              <NavItem className='my-auto'>
+                <NavbarText><Link style={{ textDecoration: 'none' }} to={"/"}>AnaSayfa</Link></NavbarText>
               </NavItem>
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
